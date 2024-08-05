@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Quote Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #4169e1;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input[type="text"], input[type="email"], input[type="tel"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #4169e1;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #365c9b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Service Quote Calculator</h1>
+        
+        <form id="quoteForm">
+            <section>
+                <h2>Plumbing</h2>
+                <label><input type="checkbox" name="plumbing" value="Kitchen faucet replacement/install"> Kitchen faucet replacement/install</label><br>
+                <label><input type="checkbox" name="plumbing" value="Shower cartridge replacement"> Shower cartridge replacement</label><br>
+                <label><input type="checkbox" name="plumbing" value="Garbage disposal"> Garbage disposal</label><br>
+                <label><input type="checkbox" name="plumbing" value="Angle stops/shut off valves"> Angle stops/shut off valves</label><br>
+                <label><input type="checkbox" name="plumbing" value="Toilet repair (Complete tank rebuild)"> Toilet repair (Complete tank rebuild)</label><br>
+                <label><input type="checkbox" name="plumbing" value="Toilet wax ring replacement"> Toilet wax ring replacement</label><br>
+                <label><input type="checkbox" name="plumbing" value="Toilet replacement"> Toilet replacement</label><br>
+                <label><input type="checkbox" name="plumbing" value="Whole house water main valve replacement"> Whole house water main valve replacement</label><br>
+                <label><input type="checkbox" name="plumbing" value="Install under sink RO system"> Install under sink RO system</label><br>
+                <label><input type="checkbox" name="plumbing" value="Washing machine outlet box replacement"> Washing machine outlet box replacement (Does not include drywall repairs)</label><br>
+            </section>
+
+            <section>
+                <h2>Electrical</h2>
+                <label><input type="checkbox" name="electrical" value="Ceiling fan replacement (Up to 10')"> Ceiling fan replacement (Up to 10')</label><br>
+                <label><input type="checkbox" name="electrical" value="Light fixture replacement (Up to 10')"> Light fixture replacement (Up to 10')</label><br>
+                <label><input type="checkbox" name="electrical" value="Can light LED conversion (Up to 10')"> Can light LED conversion (Up to 10')</label><br>
+                <label><input type="checkbox" name="electrical" value="GFCI replacement"> GFCI replacement</label><br>
+                <label><input type="checkbox" name="electrical" value="Standard receptacle replacement"> Standard receptacle replacement</label><br>
+                <label><input type="checkbox" name="electrical" value="Standard light switch replacement"> Standard light switch replacement</label><br>
+                <label><input type="checkbox" name="electrical" value="Smart switch/receptacle replacement/install"> Smart switch/receptacle replacement/install</label><br>
+                <label><input type="checkbox" name="electrical" value="Short diagnostic/repair"> Short diagnostic/repair</label><br>
+            </section>
+
+            <section>
+                <h2>Drywall Repair</h2>
+                <label>Water Damage?</label>
+                <label><input type="radio" name="waterDamage" value="Yes"> Yes</label>
+                <label><input type="radio" name="waterDamage" value="No"> No</label><br>
+                <label>Area of Damage: <input type="text" name="areaOfDamage" placeholder="e.g., 1' x 1'"></label><br>
+                <label>Ceiling or Wall: <input type="text" name="ceilingOrWall" placeholder="Ceiling or Wall"></label><br>
+                <label>Height of Damage: <input type="text" name="heightOfDamage" placeholder="e.g., 8 ft"></label><br>
+            </section>
+
+            <section>
+                <h2>Floor Repair</h2>
+                <label>Under cabinet floor repair?</label>
+                <label><input type="radio" name="underCabinetFloorRepair" value="Yes"> Yes</label>
+                <label><input type="radio" name="underCabinetFloorRepair" value="No"> No</label><br>
+            </section>
+
+            <section>
+                <h2>Other</h2>
+                <label>Other Service Request: <input type="text" name="otherServiceRequest" placeholder="Describe your request"></label><br>
+            </section>
+
+            <section>
+                <h2>Contact Us</h2>
+                <label>Email: <input type="email" name="email" placeholder="Your email"></label><br>
+                <label>Phone: <input type="tel" name="phone" placeholder="Your phone number"></label><br>
+                <label>Facebook: <input type="url" name="facebook" placeholder="Your Facebook URL"></label><br>
+                <label>Instagram: <input type="url" name="instagram" placeholder="Your Instagram URL"></label><br>
+            </section>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('quoteForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get all form data
+            const formData = new FormData(event.target);
+
+            // Convert FormData to an object
+            const data = {};
+            formData.forEach((value, key) => {
+                if (!data[key]) {
+                    data[key] = value;
+                } else if (Array.isArray(data[key])) {
+                    data[key].push(value);
+                } else {
+                    data[key] = [data[key], value];
+                }
+            });
+
+            // Display the form data (for testing purposes)
+            console.log(data);
+
+            // You can add your own logic here to process the form
